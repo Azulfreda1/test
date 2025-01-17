@@ -9,7 +9,13 @@
             font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #2c3e50; /* Fond violet foncé */
+            background-color: #2c3e50;
+            background-image: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.9)), 
+                              url('https://raw.githubusercontent.com/Azulfreda1/test/main/Logo%20double%20fle%CC%80che%20Payback.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -109,12 +115,10 @@
 
 <script>
     function calculer() {
-        // Récupérer les entrées
         const collaborateurs = parseInt(document.getElementById("collaborateurs").value);
         const avantages = parseInt(document.getElementById("avantages").value);
         const budgetParSalarie = parseInt(document.getElementById("budget").value);
 
-        // Tarif par salarié en fonction du nombre d'avantages
         let tarifParSalarie;
         if (avantages === 1) {
             tarifParSalarie = 3;
@@ -124,19 +128,11 @@
             tarifParSalarie = 6;
         }
 
-        // Frais fixes mensuels
         const fraisFixes = 49;
-
-        // Calcul du coût total pour l'entreprise
         const fraisParMois = collaborateurs * tarifParSalarie + fraisFixes;
-
-        // Calcul du budget global en fonction du nombre de salariés
         const budgetGlobal = collaborateurs * budgetParSalarie;
-
-        // Calcul des économies URSSAF réalisées (85% du budget global)
         const economiesURSSAF = budgetGlobal * 0.85;
 
-        // Affichage des résultats
         const resultDiv = document.getElementById("resultat");
         resultDiv.innerHTML = `
             <p><strong>Coût mensuel pour l'entreprise : </strong>${fraisParMois} €</p>
@@ -145,18 +141,11 @@
         `;
     }
 
-    // Exécution au chargement de la page
     window.onload = calculer;
 
-    // Écouteur d'événements pour calculer dès que l'utilisateur change une valeur
     document.getElementById("collaborateurs").addEventListener("input", calculer);
     document.getElementById("avantages").addEventListener("change", calculer);
     document.getElementById("budget").addEventListener("input", calculer);
-</script>
-
-</body>
-</html>
-
 </script>
 
 </body>
