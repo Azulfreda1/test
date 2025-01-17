@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcul Tarif Avantages Salariés</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fb;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-size: 1.1em;
+            color: #555;
+            margin-top: 10px;
+        }
+        input[type="number"], select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            background-color: #e0f7fa;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .result p {
+            font-size: 1.2em;
+            color: #333;
+        }
+        .result strong {
+            color: #00796b;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Calcul des Frais Avantages Salariés</h2>
+
+    <label for="collaborateurs">Nombre de collaborateurs :</label>
+    <input type="number" id="collaborateurs" placeholder="Entrez le nombre de collaborateurs" value="0">
+
+    <label for="avantages">Nombre d'avantages par salarié :</label>
+    <select id="avantages">
+        <option value="1">1 avantage</option>
+        <option value="2">2 avantages</option>
+        <option value="8">8 avantages</option>
+    </select>
+
+    <div class="result" id="resultat">
+        <p><strong>Coût mensuel pour l'entreprise : </strong>0 €</p>
+        <p><strong>Budget global pour 100 € par salarié : </strong>0 €</p>
+        <p><strong>Budget global pour 500 € par salarié : </strong>0 €</p>
+        <p><strong>Budget global pour 1000 € par salarié : </strong>0 €</p>
+        <p><strong>Economies URSSAF réalisées pour 100 € par salarié : </strong>0 €</p>
+        <p><strong>Economies URSSAF réalisées pour 500 € par salarié : </strong>0 €</p>
+        <p><strong>Economies URSSAF réalisées pour 1000 € par salarié : </strong>0 €</p>
+    </div>
+</div>
+
+<script>
+    function calculer() {
+        const collaborateurs = parseInt(document.getElementById("collaborateurs").value);
+        const avantages = parseInt(document.getElementById("avantages").value);
+
+        let tarifParSalarie;
+        if (avantages === 1) {
+            tarifParSalarie = 3;
+        } else if (avantages === 2) {
+            tarifParSalarie = 5;
+        } else if (avantages === 8) {
+            tarifParSalarie = 6;
+        }
+
+        const fraisFixes = 49;
+        const fraisParMois = collaborateurs * tarifParSalarie + fraisFixes;
+
+        const budgetParSalarie100 = collaborateurs * 100;
+        const budgetParSalarie500 = collaborateurs * 500;
+        const budgetParSalarie1000 = collaborateurs * 1000;
+
+        const economiesURSSAF100 = budgetParSalarie100 * 0.85;
+        const economiesURSSAF500 = budgetParSalarie500 * 0.85;
+        const economiesURSSAF1000 = budgetParSalarie1000 * 0.85;
+
+        const resultDiv = document.getElementById("resultat");
+        resultDiv.innerHTML = `
+            <p><strong>Coût mensuel pour l'entreprise : </strong>${fraisParMois} €</p>
+            <p><strong>Budget global pour 100 € par salarié : </strong>${budgetParSalarie100} €</p>
+            <p><strong>Budget global pour 500 € par salarié : </strong>${budgetParSalarie500} €</p>
+            <p><strong>Budget global pour 1000 € par salarié : </strong>${budgetParSalarie1000} €</p>
+            <p><strong>Economies URSSAF réalisées pour 100 € par salarié : </strong>${economiesURSSAF100} €</p>
+            <p><strong>Economies URSSAF réalisées pour 500 € par salarié : </strong>${economiesURSSAF500} €</p>
+            <p><strong>Economies URSSAF réalisées pour 1000 € par salarié : </strong>${economiesURSSAF1000} €</p>
+        `;
+    }
+
+    window.onload = calculer;
+    document.getElementById("collaborateurs").addEventListener("input", calculer);
+    document.getElementById("avantages").addEventListener("change", calculer);
+</script>
+
+</body>
+</html>
